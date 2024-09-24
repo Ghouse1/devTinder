@@ -1,22 +1,30 @@
-const express = require('express');
+const express = require("express");
 
 const app = express();
 
-app.use("/test", (req, res) => {
-    res.send("Testing in dev");
+const { adminAuth, userAuth } = require("./middleware/auth")
+
+app.use("/admin", adminAuth);
+app.use("/user", userAuth);
+
+app.get("/admin/getAllData", (req, res) => {
+    res.send({
+        statuscode: 200,
+        message:"Admin getAllData fecthed succesfully"});
 });
 
-app.use("/dev", (req, res) => {
-    res.send("Namaste Javascript");
+app.get("/admin/getDeleteData", (req, res) => {
+    res.send({
+        statuscode: 200,
+        message:"Admin getDeleteDate deleted succesfully"})
 });
 
-app.use((req, res) => {
-    res.send("Hello World!!!!");
+app.get("/user/getAllUserData", (req, res) => {
+    res.send({
+        statuscode: 200,
+        message: "user getAllUserData fetched succesfully"});
 });
 
-app.listen(7777, () => {
-    console.log("Listening to the port 7777....");
+app.listen(3000, (req, res) => {
+    console.log("listening to the port 3000");
 });
-
-
-
